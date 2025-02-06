@@ -1,17 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>手机</title>
+<title>文章投稿页</title>
+<style>
+    /* 样式：果冻按钮 */
+    .jelly-button {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #FF6F61; /* 新的按钮颜色，柔和的橙红色 */
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 50px; /* 圆角 */
+        font-size: 18px;
+        font-weight: bold;
+        transition: all 0.4s ease-in-out; /* 动画过渡效果 */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    }
+    
+    .jelly-button:hover {
+        transform: scale(1.1); /* 鼠标悬停时按钮放大 */
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* 增加阴影效果 */
+    }
+    
+    .jelly-button:active {
+        transform: scale(0.95); /* 点击时按钮缩小 */
+    }
+    
+    /* 居中对齐 */
+    .tel {
+        text-align: center; /* 居中文本 */
+        margin-top: 50px; /* 距离顶部的间隔 */
+    }
+
+    /* 样式：改进 h4 */
+    h4 {
+        font-size: 24px; /* 字体大小 */
+        color: #5a6369; /* 深灰色文字 */
+        font-family: 'Arial', sans-serif; /* 使用清晰的字体 */
+        font-weight: bold; /* 加粗字体 */
+        text-shadow: 2px 2px 5px rgba(118, 118, 118, 0.1); /* 文字阴影效果 */
+        margin-bottom: 20px; /* 增加底部间距 */
+    }
+</style>
 </head>
 <body>
 
 <!-- 联系客服 -->
 <div class="tel">
-    <h4>联系客服</h4>
-    <a href="mailto:2535074727@qq.com">发邮件</a>
+    <h4>提交后等待管理员审核𛂤</h4>
+    <a id="submitButton" class="jelly-button" href="#">提交文章</a>
 </div>
+
+<script>
+    // 获取当前日期并将数字0-9替换为不同的字符
+    function getCurrentDate() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份是从0开始的
+        const day = String(date.getDate()).padStart(2, '0');
+
+        // 替换0到9为不同的字符
+        const charMap = {
+            '0': '𝟢', '1': '𝟣', '2': '𝟤', '3': '𝟥', '4': '𝟦', '5': '𝟧',
+            '6': '𝟨', '7': '𝟩', '8': '𝟪', '9': '𝟫'
+        };
+
+        // 将日期中的每个数字替换
+        const replacedYear = String(year).replace(/[0-9]/g, match => charMap[match]);
+        const replacedMonth = String(month).replace(/[0-9]/g, match => charMap[match]);
+        const replacedDay = String(day).replace(/[0-9]/g, match => charMap[match]);
+
+        return `${replacedYear}/${replacedMonth}/${replacedDay}`;
+    }
+
+    // 动态更新邮件链接
+    document.getElementById('submitButton').addEventListener('click', function() {
+        const currentDate = getCurrentDate();
+        const emailSubject = "在 【𝑯𝑬𝑹𝑴𝑬𝑺】 网站上投稿的新文章";
+        const emailBody = `请不要更改以下在 【𝑯𝑬𝑹𝑴𝑬𝑺】 上提交文章通过邮件审核的模板格式，在修改后进行发送📨：\n\n—-——--𝙳𝙰𝚃𝙴: ${currentDate}—---—-—\n\n要投稿的文章标题：(****替换此处内容，并保留括号****)\n\n要投稿的文章内容：(****替换此处内容，并保留括号****)`;
+        
+        const mailtoLink = `mailto:2535074727@qq.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        window.location.href = mailtoLink; // 自动跳转到邮件客户端
+    });
+</script>
 
 </body>
 </html>
